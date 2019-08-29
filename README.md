@@ -1,2 +1,6 @@
 # Foovy
-Feature to groovy
+
+## Execução:
+py Foovy.py input
+
+(input é o arquivo contendo o texto a ser convertido)
