@@ -1,4 +1,4 @@
-  Cenário: Verificar elementos da página
+  Cenário: Verificar elementos da página:
   	Então verifico que o campo de numero de processo esta presente
   	E verifico que o campo de ano de processo esta presente
   	E verifico que o campo de órgão esta presente
