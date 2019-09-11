@@ -1,6 +1,7 @@
 # Input & Output files #
 ########################
 *.feature
+*.groovy
 
 # Ignore VS Code folder #
 #########################
