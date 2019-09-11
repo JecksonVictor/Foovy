@@ -33,7 +33,6 @@ def clear(dirty_string):
 def verifyLine(line):
 	if line:
 		if ":" in line[-1]:
-			print("ACHEI")
 			line = line[:-1]
 	return line
 
@@ -53,6 +52,7 @@ for line in input_file:
         if first_word in library:            
             #remove a primeira palavra da linha
             new_line = line[len(first_word)+1:]
+            #remove ':' no fim da linha
             new_line = verifyLine(new_line)
             #escreve a tag de identificação
             print ('@' + clear(first_word) + '("' + new_line + '")', end = '\n')
