@@ -1,0 +1,7 @@
+# Input & Output files #
+########################
+*.feature
+
+# Ignore VS Code folder #
+#########################
+.vs/
