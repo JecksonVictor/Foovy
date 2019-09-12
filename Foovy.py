@@ -14,6 +14,10 @@ def placeHeader(_file):
         for line in header_file:
             _file.write(line)
 
+#adiciona nome da classe
+def placeClassName(_file):
+    _file.write("public class " + input_file_name[:-8] + " {" + "\n")
+
 
 #Def da função de remover caracteres acentuados
 def clear(dirty_string):
@@ -35,6 +39,7 @@ def verifyLine(line):
 	return line
 
 placeHeader(output_file)
+placeClassName(output_file)
 
 #para cada linha do arquivo de entrada:
 for line in input_file:
@@ -58,22 +63,24 @@ for line in input_file:
 
             #escreve a tag de identificação
             print ('@' + clear(first_word) + '("' + new_line + '")', end = '\n')
-            output_file.write("@" + clear(first_word) + '("' + new_line + '")' + '\n')
+            output_file.write('\t' + "@" + clear(first_word) + '("' + new_line + '")' + '\n')
 
             #escreve a assinatura da função e a abertura das chaves
             print ("def ", end = '')
-            output_file.write("def ")
+            output_file.write('\t' + "def ")
             word_list = new_line.split(' ')
             func_name = ''
             for s in word_list:
                 func_name += clear(s) + '_'
             func_name = func_name[:len(func_name)-1]
             print (func_name + '()' + '{' + '\n' + '\n' + '}' + '\n')
-            output_file.write(func_name + '()' + '{' + '\n' + '\n' + '}' + '\n')
+            output_file.write(func_name + '()' + '{' + '\n' + '\t' + '\t' + '\n' + '\t' + '}' + '\n' + '\n')
 
         #caso contrário, nada a fazer
         else:
             pass
+#insere o final brace
+output_file.write('}')
 
 #fecha os arquivos abertos
 input_file.close()
