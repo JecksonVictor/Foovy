@@ -49,8 +49,8 @@ for line in input_file:
     first_word = line.split(' ', 1)[0]
     
     #se a primeira palavra for um cenário, insira como comentário
-    if first_word == "Cenário:":
-        print ('/*' + line + '*/' + '\n')
+    if first_word == "Cenário:" or first_word == "Esquema":
+        output_file.write('\t' + '/*' + line + '*/' + '\n')
     #senão, verifique se é uma palavra reservada
     else:
         #se primeira palavra é palavra reservada
@@ -62,18 +62,15 @@ for line in input_file:
             new_line = verifyLine(new_line)
 
             #escreve a tag de identificação
-            print ('@' + clear(first_word) + '("' + new_line + '")', end = '\n')
             output_file.write('\t' + "@" + clear(first_word) + '("' + new_line + '")' + '\n')
 
             #escreve a assinatura da função e a abertura das chaves
-            print ("def ", end = '')
             output_file.write('\t' + "def ")
             word_list = new_line.split(' ')
             func_name = ''
             for s in word_list:
                 func_name += clear(s) + '_'
             func_name = func_name[:len(func_name)-1]
-            print (func_name + '()' + '{' + '\n' + '\n' + '}' + '\n')
             output_file.write(func_name + '()' + '{' + '\n' + '\t' + '\t' + '\n' + '\t' + '}' + '\n' + '\n')
 
         #caso contrário, nada a fazer
@@ -85,3 +82,8 @@ output_file.write('}')
 #fecha os arquivos abertos
 input_file.close()
 output_file.close()
+
+#print outfile
+with open(input_file_name + ".groovy", "r") as outfile:
+    for l in outfile:
+        print(l, end = "")
