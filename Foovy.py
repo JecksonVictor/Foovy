@@ -1,50 +1,19 @@
 import sys
-
-#def das palavras reservadas
-reservedWords = ["E", "Quando", "Dado", "Então", "Entao"]
+from Functions import *
 
 #Abrir arquivos
 input_file_name = sys.argv[1]
 input_file = open(input_file_name, "r")
-output_file = open(input_file_name + ".groovy", "w")
-
-#adiciona as bibliotecas pt
-def placeHeader(_file):
-    with open("library/header", "r") as header_file:
-        for line in header_file:
-            _file.write(line)
-
-#adiciona nome da classe
-def placeClassName(_file):
-    _file.write("public class " + input_file_name[:-8] + " {" + "\n")
-
-
-#Def da função de remover caracteres acentuados
-def clear(dirty_string):
-    dirty_string = dirty_string.replace('é', 'e')
-    dirty_string = dirty_string.replace('ê', 'e')
-    dirty_string = dirty_string.replace('á', 'a')
-    dirty_string = dirty_string.replace('à', 'a')
-    dirty_string = dirty_string.replace('ã', 'a')
-    dirty_string = dirty_string.replace('ó', 'o')
-    dirty_string = dirty_string.replace('í', 'i')
-    dirty_string = dirty_string.replace('ú', 'u')
-    return dirty_string
-
-#verifica sem a linha contem ":" no final
-def verifyLine(line):
-	if line:
-		if ":" in line[-1]:
-			line = line[:-1]
-	return line
+output_file = open(input_file_name[:-8] + ".groovy", "w")
 
 placeHeader(output_file)
-placeClassName(output_file)
+placeClassName(output_file, input_file_name)
 
 #para cada linha do arquivo de entrada:
 for line in input_file:
-    #remove identação e permite caracteres especiais
-    line = line.strip().encode('latin-1').decode('utf-8')
+        #remove identação e permite caracteres especiais
+    line = line.strip()
+
     #verifica a primeira palavra da linha
     first_word = line.split(' ', 1)[0]
     
@@ -54,7 +23,7 @@ for line in input_file:
     #senão, verifique se é uma palavra reservada
     else:
         #se primeira palavra é palavra reservada
-        if first_word in reservedWords:            
+        if first_word in getReservedWords():            
             #remove a primeira palavra da linha
             new_line = line[len(first_word)+1:]
 
@@ -76,6 +45,7 @@ for line in input_file:
         #caso contrário, nada a fazer
         else:
             pass
+
 #insere o final brace
 output_file.write('}')
 
@@ -84,6 +54,7 @@ input_file.close()
 output_file.close()
 
 #print outfile
-with open(input_file_name + ".groovy", "r") as outfile:
+with open(input_file_name[:-8] + ".groovy", "r") as outfile:
     for l in outfile:
+        l = l.encode('latin-1').decode('utf-8')
         print(l, end = "")
