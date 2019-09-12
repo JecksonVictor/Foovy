@@ -1,7 +1,7 @@
 import sys
 
 #def das palavras reservadas
-library = ["E", "Quando", "Dado", "Então", "Entao"]
+reservedWords = ["E", "Quando", "Dado", "Então", "Entao"]
 
 #Abrir arquivos
 input_file_name = sys.argv[1]
@@ -10,7 +10,7 @@ output_file = open(input_file_name + ".groovy", "w")
 
 #adiciona as bibliotecas pt
 def placeHeader(_file):
-    with open("library/header", "r") as header_file:
+    with open("reservedWords/header", "r") as header_file:
         for line in header_file:
             _file.write(line)
 
@@ -54,7 +54,7 @@ for line in input_file:
     #senão, verifique se é uma palavra reservada
     else:
         #se primeira palavra é palavra reservada
-        if first_word in library:            
+        if first_word in reservedWords:            
             #remove a primeira palavra da linha
             new_line = line[len(first_word)+1:]
 

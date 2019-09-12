@@ -41,6 +41,7 @@ import com.kms.katalon.core.util.KeywordUtil
 import com.kms.katalon.core.webui.exception.WebElementNotFoundException
 
 import cucumber.api.java.pt.E
+import cucumber.api.java.pt.Mas
 import cucumber.api.java.pt.Dado
 import cucumber.api.java.pt.Entao
 import cucumber.api.java.pt.Quando
