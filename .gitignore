@@ -6,3 +6,4 @@
 # Ignore VS Code folder #
 #########################
 .vs/
+data/

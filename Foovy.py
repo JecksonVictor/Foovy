@@ -9,12 +9,10 @@ input_file = open(input_file_name, "r")
 output_file = open(input_file_name + ".groovy", "w")
 
 #adiciona as bibliotecas pt
-output_file.write("import cucumber.api.java.pt.E\n")
-output_file.write("import cucumber.api.java.pt.Dado\n")
-output_file.write("import cucumber.api.java.pt.Quando\n")
-output_file.write("import cucumber.api.java.pt.Entao\n")
-output_file.write("import internal.GlobalVariable\n\n")
-
+def placeHeader(_file):
+    with open("library/header", "r") as header_file:
+        for line in header_file:
+            _file.write(line)
 
 
 #Def da função de remover caracteres acentuados
@@ -36,6 +34,8 @@ def verifyLine(line):
 			line = line[:-1]
 	return line
 
+placeHeader(output_file)
+
 #para cada linha do arquivo de entrada:
 for line in input_file:
     #remove identação e permite caracteres especiais
@@ -52,11 +52,14 @@ for line in input_file:
         if first_word in library:            
             #remove a primeira palavra da linha
             new_line = line[len(first_word)+1:]
+
             #remove ':' no fim da linha
             new_line = verifyLine(new_line)
+
             #escreve a tag de identificação
             print ('@' + clear(first_word) + '("' + new_line + '")', end = '\n')
             output_file.write("@" + clear(first_word) + '("' + new_line + '")' + '\n')
+
             #escreve a assinatura da função e a abertura das chaves
             print ("def ", end = '')
             output_file.write("def ")
@@ -67,6 +70,7 @@ for line in input_file:
             func_name = func_name[:len(func_name)-1]
             print (func_name + '()' + '{' + '\n' + '\n' + '}' + '\n')
             output_file.write(func_name + '()' + '{' + '\n' + '\n' + '}' + '\n')
+
         #caso contrário, nada a fazer
         else:
             pass
