@@ -31,6 +31,7 @@ def clear(dirty_string):
     return dirty_string
 
 def criar_steps(): 
+    ultimoStep = ""
     #para cada linha do arquivo de entrada:
     for line in input_file:
         variavel = ""
@@ -40,6 +41,9 @@ def criar_steps():
         line = clear(line)
         #verifica a primeira palavra da linha
         first_word = line.split(' ', 1)[0]
+        #armazena o step antes do "E"
+        if(first_word != "E"):
+            ultimoStep = first_word
         #verifica se tem alguma variavel e pega o nome
         if(line.find("<") != -1):
             posicao1 = line.find("<")
@@ -49,6 +53,8 @@ def criar_steps():
         new_line = line[len(first_word)+1:]
         #remove ':' no fim da linha
         new_line = verificaLinha(new_line)
+        if(first_word == "E"):
+            first_word = ultimoStep
         output_file.write("@" + first_word + '("' + new_line + '")' + '\n')
         #se nao possuir nenhuma variavel
         if(variavel == ""):
@@ -59,7 +65,6 @@ def criar_steps():
 
 #def das palavras reservadas
 palavrasReservadas = ["E", "Quando", "Dado", "Então", "Entao"]
-tipoStep = ""
 #ler arquivo
 #def ler_arquivo():
 nomeArquivo = input("Digite o nome do arquivo : ") + ".feature"

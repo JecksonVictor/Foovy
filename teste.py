@@ -18,6 +18,10 @@ def step_impl(context):
 def step_impl(context):
 
 
+@when("faco outro teste")
+def step_impl(context):
+
+
 @then("vejo que deu certo")
 def step_impl(context):
 
